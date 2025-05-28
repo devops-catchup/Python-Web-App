@@ -1,16 +1,17 @@
-FROM python:3.9-slim-buster
+# Use official Python image
+FROM python:3.10
 
-LABEL Name="Python Flask Demo App" Version=1.4.2
-LABEL org.opencontainers.image.source = "https://github.com/benc-uk/python-demoapp"
-
-ARG srcDir=src
+# Set working directory
 WORKDIR /app
-COPY $srcDir/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-COPY $srcDir/run.py .
-COPY $srcDir/app ./app
+# Copy files
+COPY app/ /app/
 
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Expose port
 EXPOSE 5000
 
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "run:app"]
+# Run the application
+CMD ["python", "app.py"]
