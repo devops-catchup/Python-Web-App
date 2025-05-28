@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Gallery</h1>
+
+<style>
+.gallery-container {
+  max-width: 900px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border: 4px solid #007BFF;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 123, 255, 0.5);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 123, 255, 0.8);
+  color: white;
+  width: 100%;
+  padding: 10px 15px;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 0 0 12px 12px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+  opacity: 1;
+}
+</style>
+
+<div class="gallery-container">
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/office1.jpg') }}" alt="Office Image 1">
+    <div class="gallery-caption">Modern Office Space</div>
+  </div>
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/office2.jpg') }}" alt="Office Image 2">
+    <div class="gallery-caption">Team Collaboration Area</div>
+  </div>
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/bus1.jpg') }}" alt="Bus Image 1">
+    <div class="gallery-caption">Luxury AC Bus</div>
+  </div>
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/bus2.jpg') }}" alt="Bus Image 2">
+    <div class="gallery-caption">Comfortable Seating</div>
+  </div>
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/group1.jpg') }}" alt="Group Photo 1">
+    <div class="gallery-caption">Happy Travelers Group</div>
+  </div>
+
+  <div class="gallery-item" tabindex="0">
+    <img src="{{ url_for('static', filename='images/group2.jpg') }}" alt="Group Photo 2">
+    <div class="gallery-caption">Team Bonding Trip</div>
+  </div>
+
+</div>
+
+{% endblock %}

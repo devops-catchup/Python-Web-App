@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to AVM Tour & Travel</h1>
+<p><strong>AVM Tours</strong> is your trusted travel partner offering exciting and affordable travel packages across India. We are known for our luxury buses, professional service, and customer satisfaction. Plan your next vacation with AVM for a hassle-free and memorable journey.</p>
+
+<h2>Top City Destinations</h2>
+<style>
+.city-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.city-card {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+.city-card:hover {
+    transform: scale(1.05);
+}
+.city-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+</style>
+<div class="city-cards">
+    <div class="city-card">
+        <img src="{{ url_for('static', filename='images/mumbai.jpg') }}" alt="Mumbai">
+        <h3>Mumbai</h3>
+        <p><strong>Best Places:</strong> Gateway of India, Marine Drive, Elephanta Caves</p>
+        <p><strong>Travel Options:</strong><br>
+            ✈️ Flight: ₹2500<br>
+            🚆 Train: ₹900<br>
+            🚌 Bus: ₹700
+        </p>
+    </div>
+    <div class="city-card">
+        <img src="{{ url_for('static', filename='images/delhi.jpg') }}" alt="Delhi">
+        <h3>Delhi</h3>
+        <p><strong>Best Places:</strong> Red Fort, India Gate, Qutub Minar</p>
+        <p><strong>Travel Options:</strong><br>
+            ✈️ Flight: ₹2200<br>
+            🚆 Train: ₹850<br>
+            🚌 Bus: ₹650
+        </p>
+    </div>
+    <div class="city-card">
+        <img src="{{ url_for('static', filename='images/goa.jpg') }}" alt="Goa">
+        <h3>Goa</h3>
+        <p><strong>Best Places:</strong> Baga Beach, Fort Aguada, Dudhsagar Falls</p>
+        <p><strong>Travel Options:</strong><br>
+            ✈️ Flight: ₹3000<br>
+            🚆 Train: ₹1000<br>
+            🚌 Bus: ₹800
+        </p>
+    </div>
+    <div class="city-card">
+        <img src="{{ url_for('static', filename='images/jaipur.jpg') }}" alt="Jaipur">
+        <h3>Jaipur</h3>
+        <p><strong>Best Places:</strong> Hawa Mahal, Amber Fort, City Palace</p>
+        <p><strong>Travel Options:</strong><br>
+            ✈️ Flight: ₹2000<br>
+            🚆 Train: ₹750<br>
+            🚌 Bus: ₹600
+        </p>
+    </div>
+</div>
+{% endblock %}

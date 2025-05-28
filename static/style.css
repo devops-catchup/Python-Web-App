@@ -1,0 +1,72 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+}
+
+nav {
+    background: #004080;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 60px;
+    align-items: center;
+}
+
+nav .logo {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main {
+    padding: 20px;
+}
+
+.destinations, .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.destinations div, .gallery div {
+    text-align: center;
+}
+
+.destinations img, .gallery img {
+    width: 200px;
+    border-radius: 8px;
+}
+
+input, select, button {
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+}
+
+.pay-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.pay-btn:hover {
+    background-color: #218838;
+}

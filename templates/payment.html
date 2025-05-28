@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Payment Page</h1>
+
+<style>
+.payment-container {
+  max-width: 500px;
+  margin: 30px auto;
+  background: #f7f9fc;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-container h2 {
+  text-align: center;
+  color: #007BFF;
+  margin-bottom: 25px;
+  animation: fadeInDown 1s ease forwards;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.payment-methods {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.payment-method {
+  flex: 1 1 45%;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.payment-method:hover {
+  border-color: #007BFF;
+  color: #007BFF;
+  box-shadow: 0 8px 16px rgba(0,123,255,0.3);
+  transform: scale(1.05);
+}
+
+.payment-method input[type="radio"] {
+  display: none;
+}
+
+.payment-method input[type="radio"]:checked + label {
+  border-color: #007BFF;
+  color: #007BFF;
+}
+
+.coupon-section {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.coupon-section input {
+  flex-grow: 1;
+}
+
+button.apply-coupon {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+button.apply-coupon:hover {
+  background: #218838;
+}
+
+button.pay-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background: #007BFF;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+}
+
+button.pay-btn:hover {
+  background: #0056b3;
+  box-shadow: 0 12px 30px rgba(0, 86, 179, 0.7);
+}
+
+.feedback-msg {
+  margin-top: 15px;
+  color: #28a745;
+  font-weight: 600;
+  text-align: center;
+  display: none;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+
+<form id="paymentForm" class="payment-container" onsubmit="return processPayment(event)">
+  <h2>Enter Customer Details</h2>
+  
+  <label for="name">Full Name</label>
+  <input type="text" id="name" name="name" placeholder="Your full name" required>
+  
+  <label for="email">Email Address</label>
+  <input type="email" id="email" name="email" placeholder="you@example.com" required>
+  
+  <label for="contact">Contact Number</label>
+  <input type="tel" id="contact" name="contact" placeholder="+91 12345 67890" pattern="[+0-9\s]{10,15}" required>
+  
+  <label>Payment Method</label>
+  <div class="payment-methods">
+    <div class="payment-method">
+      <input type="radio" id="phonepay" name="payment" value="PhonePe" required>
+      <label for="phonepay">📱 PhonePe</label>
+    </div>
+    <div class="payment-method">
+      <input type="radio" id="googlepay" name="payment" value="Google Pay" required>
+      <label for="googlepay">🤖 Google Pay</label>
+    </div>
+    <div class="payment-method">
+      <input type="radio" id="upi" name="payment" value="UPI" required>
+      <label for="upi">🔗 UPI</label>
+    </div>
+    <div class="payment-method">
+      <input type="radio" id="creditcard" name="payment" value="Credit Card" required>
+      <label for="creditcard">💳 Credit Card</label>
+    </div>
+  </div>
+
+  <div class="coupon-section">
+    <input type="text" id="coupon" name="coupon" placeholder="Enter Coupon Code">
+    <button type="button" class="apply-coupon" onclick="applyCoupon()">Apply</button>
+  </div>
+
+  <button type="submit" class="pay-btn">Pay Now</button>
+
+  <div class="feedback-msg" id="feedback"></div>
+</form>
+
+<script>
+function applyCoupon() {
+  const couponInput = document.getElementById('coupon');
+  const feedback = document.getElementById('feedback');
+  const code = couponInput.value.trim().toUpperCase();
+
+  if(code === "AVM20") {
+    feedback.style.color = '#28a745';
+    feedback.textContent = "Coupon Applied! You got 20% off 🎉";
+    feedback.style.display = 'block';
+  } else if (code === "") {
+    feedback.style.color = '#dc3545';
+    feedback.textContent = "Please enter a coupon code.";
+    feedback.style.display = 'block';
+  } else {
+    feedback.style.color = '#dc3545';
+    feedback.textContent = "Invalid Coupon Code!";
+    feedback.style.display = 'block';
+  }
+}
+
+function processPayment(event) {
+  event.preventDefault();
+  const feedback = document.getElementById('feedback');
+  feedback.style.color = '#007BFF';
+  feedback.textContent = "Processing Payment... Please wait.";
+  feedback.style.display = 'block';
+
+  setTimeout(() => {
+    feedback.style.color = '#28a745';
+    feedback.textContent = "Payment Successful! Thank you for booking with AVM.";
+  }, 2500);
+
+  // Here you can add actual payment processing code if you link to backend.
+
+  return false; // prevent form submission for demo
+}
+</script>
+
+{% endblock %}

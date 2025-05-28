@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Thank You, {{ name }}!</h1>
+<p>Your payment via <strong>{{ method }}</strong> has been received.</p>
+{% if coupon %}
+    <p>Coupon Applied: <strong>{{ coupon }}</strong></p>
+{% endif %}
+<p>We hope to see you on your next trip!</p>
+{% endblock %}

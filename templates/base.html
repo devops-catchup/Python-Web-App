@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AVM Tours</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='images/avm-logo.jpg') }}" alt="AVM" class="logo">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/payment">Payment</a></li>
+        </ul>
+    </nav>
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
